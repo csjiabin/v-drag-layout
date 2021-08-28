@@ -1,0 +1,143 @@
+<template>
+  <div class="drag-layout" :style="{ height: addUnit(height) }">
+    <div class="drag-layout__left">
+      <widget-list :options="options">
+        <slot
+          slot-scope="{ item, index }"
+          name="widget"
+          :data="item"
+          :index="index"
+        />
+      </widget-list>
+    </div>
+    <div class="drag-layout__content">
+      <div class="mobile">
+        <div class="mobile-nav" @click="clickNav">
+          <div class="mobile-nav__statusbar">09:30AM</div>
+          <div
+            class="mobile-nav__title"
+            :style="{
+              backgroundColor: config.navigatorColor,
+              color: config.navigatorTitleColor,
+            }"
+          >
+            <span>{{ config.title }}</span>
+          </div>
+        </div>
+        <div
+          class="view-content"
+          :style="{ backgroundColor: config.backgroundColor }"
+        >
+          <div v-if="views.length == 0" class="view-content__empty">
+            <slot name="empty">从左侧拖拽来添加视图</slot>
+          </div>
+
+          <widget-container
+            ref="widgetCont"
+            v-model="views"
+            :active-color="activeColor"
+            :select="select"
+            @select="handleWidgetSelect"
+          >
+            <slot
+              slot-scope="{ view, index }"
+              name="view"
+              :data="view"
+              :index="index"
+            />
+          </widget-container>
+        </div>
+      </div>
+      <slot />
+    </div>
+    <div class="drag-layout__right">
+      <slot name="page" :data="config" v-if="!select.uid"> </slot>
+      <slot name="conf" :data="select" v-else />
+    </div>
+  </div>
+</template>
+<script>
+import WidgetContainer from "./widget-container.vue";
+import WidgetList from "./widget-list";
+export const defaultConfig = {
+  title: "title",
+  backgroundColor: "#f7f8f9",
+  navigatorTitleColor: "#333",
+  navigatorColor: "#fff",
+};
+export default {
+  name: "v-drag-layout",
+  components: {
+    WidgetList,
+    WidgetContainer,
+  },
+  props: {
+    height: {
+      type: [String, Number],
+      default: "100%",
+    },
+    value: {
+      type: Object,
+      default: () => ({
+        views: [],
+        config: defaultConfig,
+      }),
+    },
+    options: {
+      type: Array,
+      default: () => [],
+    },
+    activeColor: String,
+  },
+  data() {
+    return {
+      config: this.value.config || defaultConfig,
+      views: this.value.views,
+      select: {},
+    };
+  },
+  watch: {
+    value(v) {
+      this.views = v.views;
+      this.config = v.config;
+    },
+    views: {
+      deep: true,
+      handler() {
+        this.handleChange();
+      },
+    },
+    page: {
+      immediate: true,
+      handler() {
+        this.handleChange();
+      },
+    },
+  },
+  // mounted() {
+  //   const { views, config } = this.value;
+  //   this.views = views;
+  //   this.config = config;
+  // },
+  methods: {
+    clickNav() {
+      this.select = {};
+    },
+    handleWidgetSelect(widget, index) {
+      this.select = widget;
+      this.$emit("select", widget, index);
+    },
+    handleChange() {
+      const { views, config } = this;
+      this.$emit("input", { views, config });
+    },
+    // 添加单位，如果有，%，px等单位结尾或者值为auto，直接返回，否则加上px单位结尾
+    addUnit(value = "auto", unit = "px") {
+      let reg = /^(?:-?\d+|-?\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/;
+      value = String(value);
+      // 用uView内置验证规则中的number判断是否为数值
+      return reg.test(value) ? `${value}${unit}` : value;
+    },
+  },
+};
+</script>

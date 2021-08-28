@@ -1,0 +1,267 @@
+$color: #409eff;
+$background-color: #ecf5ff;
+$ghost-color: #f56c6c;
+.drag-layout {
+  display: flex;
+  align-items: center;
+  background: #f7f8f9;
+  height: 100%;
+  ul {
+    position: relative;
+    overflow: hidden;
+    padding: 0 10px 10px;
+    box-sizing: border-box;
+    margin: 0;
+    list-style: none;
+    li {
+      list-style: none;
+    }
+  }
+  &__left,
+  &__right {
+    width: 400px;
+    height: 100%;
+    padding: 10px 0;
+    background: #fff;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  // 左侧组件展示区
+  &__left {
+    ul {
+      height: 100%;
+      overflow: auto;
+    }
+
+    .widget-label {
+      font-size: 12px;
+      display: block;
+      width: 30.333%;
+      margin: 1%;
+      line-height: 26px;
+      position: relative;
+      float: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #666;
+      cursor: move;
+      background: #f4f6fc;
+      border: 1px solid #f4f6fc;
+      border-radius: 3px;
+      user-select: none;
+      padding: 0 6px;
+      box-sizing: border-box;
+      &:hover {
+        // color: $color;
+        border: 1px dashed #999;
+      }
+
+      .icon {
+        margin-right: 6px;
+        font-size: 14px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      span {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+  }
+  &__content {
+    flex: 1;
+    .mobile {
+      width: 375px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 6px #ccc;
+      user-select: none;
+      border-radius: 10px;
+      overflow: hidden;
+      // 手机导航
+      &-nav {
+        background: #fff;
+        z-index: 999;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+        height: 55px;
+        &:hover {
+          transform: scale(0.98);
+          border-radius: 5px;
+          overflow: hidden;
+          box-shadow: 0 0 10px #afafaf;
+        }
+        &__statusbar,
+        &__title {
+          text-align: center;
+        }
+        &__statusbar {
+          font-size: 12px;
+          height: 20px;
+          line-height: 20px;
+          color: #666;
+        }
+        &__title {
+          height: 35px;
+          line-height: 35px;
+          font-size: 14px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          box-sizing: border-box;
+          padding: 0 10px;
+        }
+        img {
+          max-width: 100%;
+          image-rendering: -moz-crisp-edges;
+          image-rendering: -o-crisp-edges;
+          image-rendering: -webkit-optimize-contrast;
+          image-rendering: crisp-edges;
+          -ms-interpolation-mode: nearest-neighbor;
+        }
+      }
+
+      // 模板视图
+      .view-content {
+        flex: 1;
+        position: relative;
+        &__empty {
+          font-size: 14px;
+          color: #ccc;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+        .widget-views {
+          // border: 1px dashed #999;
+          height: 650px;
+          overflow: auto;
+          // 滚动条 start
+          &::-webkit-scrollbar-button {
+            display: none;
+          }
+          &::-webkit-scrollbar {
+            width: 4px;
+          }
+          &::-webkit-scrollbar-thumb {
+            background-color: #d0d0d0;
+            border-radius: 4px;
+          }
+          &::-webkit-scrollbar-thumb:hover {
+            background-color: #aaa;
+          }
+          // 滚动条 end
+
+          // widget拖拽到视图中
+          li.widget-label.ghost {
+            background: #f56c6c;
+            border: 2px solid #f56c6c;
+            position: relative;
+            content: "";
+            height: 3px;
+            box-sizing: border-box;
+            font-size: 0;
+            overflow: hidden;
+            padding: 0;
+            &::after {
+              background: #f56c6c;
+              content: "";
+            }
+            i::before {
+              content: "";
+            }
+          }
+
+          // 在widget展示视图中
+          .widget-view {
+            position: relative;
+            outline-offset: 0;
+            outline: 1px dashed #999;
+            background-color: rgba(236, 245, 255, 0.3);
+            margin: 3px 2px;
+            transition: all 0.25s ease;
+            min-height: 26px;
+            &:first-child {
+              margin-top: 1px;
+            }
+            &__default {
+              height: 80px;
+              line-height: 80px;
+              text-align: center;
+              color: #666;
+              font-size: 14px;
+            }
+            &__action,
+            &__drag {
+              position: absolute;
+              background: $color;
+              z-index: 10;
+              height: 28px;
+              line-height: 28px;
+              i {
+                font-size: 14px;
+                color: #fff;
+                margin: 0 5px;
+              }
+            }
+            // 复制/删除区域
+            &__action {
+              right: -1px;
+              bottom: -1px;
+              i {
+                cursor: pointer;
+              }
+            }
+            // 移动小图标
+            &__drag {
+              right: -1px;
+              top: -1px;
+              // display: none;
+              i {
+                cursor: move;
+              }
+            }
+
+            &:after {
+              position: absolute;
+              left: 0;
+              right: 0;
+              top: 0;
+              bottom: 0;
+              display: block;
+            }
+
+            &:hover {
+              background: $background-color;
+              outline-color: $color;
+              &.active:not(.ghost) {
+                outline: 1px solid $color;
+              }
+
+              .widget-view__drag {
+                display: block;
+              }
+            }
+
+            // 选中状态
+            &.active {
+              outline: 1px solid $color;
+            }
+
+            // 拖拽移动时
+            &.ghost {
+              outline: 1px solid #f56c6c;
+              box-sizing: border-box;
+            }
+          }
+        }
+      }
+    }
+  }
+}
