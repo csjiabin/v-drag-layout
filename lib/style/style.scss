@@ -1,6 +1,8 @@
 $color: #409eff;
 $background-color: #ecf5ff;
 $ghost-color: #f56c6c;
+@import "./iconfont/iconfont.css";
+
 .drag-layout {
   display: flex;
   align-items: center;

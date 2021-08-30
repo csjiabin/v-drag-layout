@@ -3,6 +3,7 @@
     <v-drag-layout
       :options="options"
       v-model="data"
+      @click:nav="handleClickNavClick"
       @select="handleWidgetSelect"
     >
       <!-- 左侧 -->
@@ -60,6 +61,11 @@ export default {
     };
   },
   methods: {
+    // 点击导航
+    handleClickNavClick(config) {
+      console.log(config);
+    },
+    // 视图点击
     handleWidgetSelect(view, index) {
       console.log(view, index);
     },
@@ -75,7 +81,6 @@ body {
 }
 #app {
   height: 100vh;
-  // padding: 10px;
   box-sizing: border-box;
 }
 </style>

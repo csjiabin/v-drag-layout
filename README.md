@@ -11,15 +11,20 @@ yarn add v-drag-layout
 ```javascript
 // main.js
 import Vue from "vue";
-import DragLayout from "v-drag-layout";
-Vue.use(DragLayout);
+import VDragLayout from "v-drag-layout";
+Vue.use(VDragLayout);
 ```
 
 <!-- vue file -->
 
 ```html
 <template>
-  <v-drag-layout :options="options" v-model="data" @select="handleWidgetSelect">
+  <v-drag-layout
+    :options="options"
+    v-model="data"
+    @click:nav="handleClickNavClick"
+    @select="handleWidgetSelect"
+  >
     <!-- 左侧 -->
     <template #widget="{ data }"> {{ data.name }} </template>
     <!-- 视图 -->
@@ -68,6 +73,11 @@ Vue.use(DragLayout);
       };
     },
     methods: {
+      // 点击导航
+      handleClickNavClick(config) {
+        console.log(config);
+      },
+      // 视图点击
       handleWidgetSelect(view, index) {
         console.log(view, index);
       },

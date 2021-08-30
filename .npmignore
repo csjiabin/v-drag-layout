@@ -1,17 +1,10 @@
 .DS_Store
 node_modules
 /dist
-/packages
 /public
-.browserslistrc
-.eslintrc.js
 .gitignore
-babel.config.js
-vue.config.js
-jsconfig.json
-# local env files
-.env.local
-.env.*.local
+vite.config.js
+index.html
 
 # Log files
 npm-debug.log*

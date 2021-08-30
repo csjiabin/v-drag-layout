@@ -29,8 +29,8 @@
 </template>
 <script>
 import Draggable from "vuedraggable";
-import widgetItem from "./widget-container-item";
-import { uuid } from "../utils";
+import widgetItem from "./widget-container-item.vue";
+import { uuid } from "./utils";
 export default {
   components: {
     Draggable,

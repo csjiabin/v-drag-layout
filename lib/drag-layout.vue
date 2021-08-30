@@ -51,14 +51,14 @@
       <slot />
     </div>
     <div class="drag-layout__right">
-      <slot name="page" :data="config" v-if="!select.uid"> </slot>
+      <slot name="page" :data="config" v-if="!select.uid" />
       <slot name="conf" :data="select" v-else />
     </div>
   </div>
 </template>
 <script>
 import WidgetContainer from "./widget-container.vue";
-import WidgetList from "./widget-list";
+import WidgetList from "./widget-list.vue";
 export const defaultConfig = {
   title: "title",
   backgroundColor: "#f7f8f9",
@@ -114,14 +114,10 @@ export default {
       },
     },
   },
-  // mounted() {
-  //   const { views, config } = this.value;
-  //   this.views = views;
-  //   this.config = config;
-  // },
   methods: {
     clickNav() {
       this.select = {};
+      this.$emit("click:nav", this.config);
     },
     handleWidgetSelect(widget, index) {
       this.select = widget;
