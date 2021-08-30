@@ -10,7 +10,7 @@
         />
       </widget-list>
     </div>
-    <div class="drag-layout__content" v-click-outside="handleClickOutside">
+    <div class="drag-layout__content">
       <div class="mobile">
         <div class="mobile-nav" @click="clickNav">
           <div class="mobile-nav__statusbar">09:30AM</div>
@@ -52,14 +52,13 @@
     </div>
     <div class="drag-layout__right">
       <slot name="page" :data="config" v-if="!select.uid" />
-      <slot name="conf" :data="select" v-else />
+      <slot name="conf" :data="select" v-if="select.uid && views.length" />
     </div>
   </div>
 </template>
 <script>
 import WidgetContainer from "./widget-container.vue";
 import WidgetList from "./widget-list.vue";
-import clickOutside from "./directives/click-outside";
 export const defaultConfig = {
   title: "title",
   backgroundColor: "#f7f8f9",
@@ -68,9 +67,6 @@ export const defaultConfig = {
 };
 export default {
   name: "v-drag-layout",
-  directives: {
-    clickOutside,
-  },
   components: {
     WidgetList,
     WidgetContainer,
@@ -122,9 +118,6 @@ export default {
     clickNav() {
       this.select = {};
       this.$emit("click:nav", this.config);
-    },
-    handleClickOutside() {
-      this.select = {};
     },
     handleWidgetSelect(widget, index) {
       this.select = widget;
