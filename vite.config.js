@@ -6,9 +6,11 @@ import { createVuePlugin } from "vite-plugin-vue2";
 export default defineConfig({
   plugins: [createVuePlugin({ jsx: true })],
 
-  alias: {
-    '@': path.resolve(__dirname, './src'),
-    'lib': path.resolve(__dirname, './lib'),
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+      'lib': path.resolve(__dirname, './lib'),
+    }
   },
   build: {
     lib: {
