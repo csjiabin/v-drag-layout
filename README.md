@@ -86,4 +86,4 @@ Vue.use(VDragLayout);
 </script>
 ```
 
-![效果](./examples/1630042869.jpg)
+![效果](https://github.com/csjiabin/v-drag-layout/blob/master/src/1630042869.jpg)
