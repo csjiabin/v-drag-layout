@@ -30,7 +30,7 @@
 <script>
 import Draggable from "vuedraggable";
 import widgetItem from "./widget-container-item.vue";
-import { uuid } from "./utils";
+import { uuid, cloneDeep } from "./utils";
 export default {
   components: {
     Draggable,
@@ -95,7 +95,7 @@ export default {
       const uid = uuid();
       let widget = this.views[newIndex];
       let newWidget = {
-        ...widget,
+        ...cloneDeep(widget),
         uid,
         // 绑定键值
         model: widget.type + "_" + uid,
@@ -111,7 +111,7 @@ export default {
     handleWidgetClone(widget, index) {
       const uid = uuid();
       let cloneData = {
-        ...widget,
+        ...cloneDeep(widget),
         uid,
         // 绑定键值
         model: widget.type + "_" + uid,
