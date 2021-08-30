@@ -84,7 +84,7 @@ export default {
   },
   methods: {
     handleSelectWidget(index) {
-      console.log(index, "#####");
+      // console.log(index, "#####");
       this.selectWidget = this.views[index];
     },
     handleWidgetAdd({ newIndex }) {
