@@ -5,11 +5,15 @@ import { createVuePlugin } from "vite-plugin-vue2";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [createVuePlugin({ jsx: true })],
+
+  alias: {
+    '@': path.resolve(__dirname, './src'),
+    'lib': path.resolve(__dirname, './lib'),
+  },
   build: {
     lib: {
       entry: path.resolve(__dirname, 'lib/index.js'),
       name: 'VDragLayout',
-      formats: ['es', 'cjs', 'umd'],
       fileName: (format) => `index.${format}.js`
     },
     rollupOptions: {
