@@ -12,7 +12,7 @@ yarn add v-drag-layout
 // main.js
 import Vue from "vue";
 import VDragLayout from "v-drag-layout";
-import "v-drag-layout/style.css";
+import "v-drag-layout/dist/style.css";
 Vue.use(VDragLayout);
 ```
 
