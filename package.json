@@ -1,17 +1,17 @@
 {
   "name": "v-drag-layout",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": false,
   "author": "csjiabin <hjbmeow@163.com>",
   "files": [
     "dist"
   ],
-  "main": "./dist/my-lib.umd.js",
-  "module": "./dist/my-lib.es.js",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
   "exports": {
     ".": {
-      "import": "./dist/my-lib.es.js",
-      "require": "./dist/my-lib.umd.js"
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js"
     }
   },
   "scripts": {
