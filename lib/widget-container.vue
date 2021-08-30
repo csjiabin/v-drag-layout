@@ -128,12 +128,11 @@ export default {
           this.selectWidget = {};
         } else {
           this.selectWidget = this.views[index - 1];
-          this.handleWidgetSelect(this.selectWidget, index);
         }
       } else {
         this.selectWidget = this.views[index + 1];
-        this.handleWidgetSelect(this.selectWidget, index);
       }
+      this.handleWidgetSelect(this.selectWidget, index);
       this.$nextTick(() => {
         this.views.splice(index, 1);
       });

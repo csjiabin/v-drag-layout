@@ -46,6 +46,7 @@
               :index="index"
             />
           </widget-container>
+          <slot name="ext-view" />
         </div>
       </div>
       <slot />
