@@ -26,7 +26,7 @@
         </div>
         <div
           class="view-content"
-          :style="{ backgroundColor: config.backgroundColor }"
+          :style="{ backgroundColor: config.backgroundColor, padding }"
         >
           <div v-if="views.length == 0" class="view-content__empty">
             <slot name="empty">从左侧拖拽来添加视图</slot>
@@ -37,7 +37,7 @@
             v-model="views"
             :active-color="activeColor"
             :select="select"
-            @select="handleWidgetSelect"
+            @select="setSelect"
           >
             <slot
               slot-scope="{ view, index }"
@@ -53,7 +53,12 @@
     </div>
     <div class="drag-layout__right">
       <slot name="page" :data="config" v-if="!select.uid" />
-      <slot name="conf" :data="select" v-if="select.uid && views.length" />
+      <slot
+        name="conf"
+        :data="select"
+        :index="selectIndex"
+        v-if="select.uid && views.length"
+      />
     </div>
   </div>
 </template>
@@ -84,6 +89,7 @@ export default {
         config: defaultConfig,
       }),
     },
+    padding: String,
     options: {
       type: Array,
       default: () => [],
@@ -95,6 +101,7 @@ export default {
       config: this.value.config || defaultConfig,
       views: this.value.views,
       select: {},
+      selectIndex: -1,
     };
   },
   watch: {
@@ -120,9 +127,17 @@ export default {
       this.select = {};
       this.$emit("click:nav", this.config);
     },
+    setSelect(widget, index) {
+      this.handleWidgetSelect(widget, index);
+    },
     handleWidgetSelect(widget, index) {
       this.select = widget;
-      this.$emit("select", widget, index);
+      if (!index) {
+        this.selectIndex = this.views.findIndex((v) => widget.uid === v.uid);
+      } else {
+        this.selectIndex = index;
+      }
+      this.$emit("select", widget, this.selectIndex);
     },
     handleChange() {
       const { views, config } = this;

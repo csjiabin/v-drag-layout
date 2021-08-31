@@ -55,7 +55,8 @@ export default {
   },
   methods: {
     handleSelectWidget(index) {
-      this.$emit("select", index, this.view);
+      if (this.active) return;
+      this.$emit("select", this.view, index);
     },
   },
 };
