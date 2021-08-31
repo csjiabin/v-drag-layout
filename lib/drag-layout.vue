@@ -127,10 +127,16 @@ export default {
       this.select = {};
       this.$emit("click:nav", this.config);
     },
+    // 如果第一参数不传则重置选中
     setSelect(widget, index) {
+      if (!widget) {
+        this.select = {};
+        this.selectIndex = -1;
+        return;
+      }
       this.handleWidgetSelect(widget, index);
     },
-    handleWidgetSelect(widget, index) {
+    handleWidgetSelect(widget = {}, index) {
       this.select = widget;
       if (!index) {
         this.selectIndex = this.views.findIndex((v) => widget.uid === v.uid);
