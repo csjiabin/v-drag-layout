@@ -105,9 +105,13 @@ export default {
     };
   },
   watch: {
-    value(v) {
-      this.views = v.views;
-      this.config = v.config;
+    value: {
+      immediate: true,
+      deep: true,
+      handler(v) {
+        this.views = v.views;
+        this.config = v.config;
+      },
     },
     views: {
       deep: true,
