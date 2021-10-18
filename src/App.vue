@@ -1,28 +1,6 @@
 <template>
   <div id="app">
-    <v-drag-layout
-      :options="options"
-      v-model="data"
-      @click:nav="handleClickNavClick"
-      @select="handleWidgetSelect"
-    >
-      <!-- 左侧 -->
-      <template #widget="{ data }">
-        {{ data.name }}
-      </template>
-      <!-- 视图 -->
-      <template #view="{ index }">
-        <div style="height: 100px; text-align: center">
-          {{ index }}
-        </div>
-      </template>
-      <!-- 配置 -->
-      <template #empty>从左侧拖拽来添加视图</template>
-      <!-- 视图 -->
-      <template #conf="{ data }">配置：{{ data.name }} </template>
-      <!-- 页面 -->
-      <!-- <template #page="{ data }">{{ data }}</template> -->
-    </v-drag-layout>
+    <v-drag-layout :options="options" v-model="data"> </v-drag-layout>
   </div>
 </template>
 
@@ -33,20 +11,32 @@ export default {
     return {
       options: [
         {
-          type: "banner",
-          name: "轮播图",
-          icon: "icon-tupian",
-          options: {
-            value: [],
-          },
+          group: "base",
+          name: "基础",
+          list: [
+            {
+              type: "image",
+              name: "图片",
+              icon: "icon-tupian",
+              options: {
+                value: [],
+              },
+            },
+          ],
         },
         {
-          type: "image",
-          name: "图片",
-          icon: "icon-tupian",
-          options: {
-            value: [],
-          },
+          group: "advanced",
+          name: "高级",
+          list: [
+            {
+              type: "banner",
+              name: "轮播图",
+              icon: "icon-tupian",
+              options: {
+                value: [],
+              },
+            },
+          ],
         },
       ],
       data: {
@@ -60,16 +50,7 @@ export default {
       },
     };
   },
-  methods: {
-    // 点击导航
-    handleClickNavClick(config) {
-      console.log(config);
-    },
-    // 视图点击
-    handleWidgetSelect(view, index) {
-      console.log(view, index);
-    },
-  },
+  methods: {},
 };
 </script>
 

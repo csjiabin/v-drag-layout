@@ -1,81 +1,56 @@
 <template>
-  <div class="drag-layout" :style="{ height: addUnit(height) }">
+  <div class="drag-layout">
     <div class="drag-layout__left">
-      <widget-list :options="options">
-        <slot
-          slot-scope="{ item, index }"
-          name="widget"
-          :data="item"
-          :index="index"
-        />
-      </widget-list>
-    </div>
-    <div class="drag-layout__content">
-      <div class="mobile">
-        <div class="mobile-nav" @click="clickNav">
-          <div class="mobile-nav__statusbar">09:30AM</div>
-          <div
-            class="mobile-nav__title"
-            :style="{
-              backgroundColor: config.navigatorColor,
-              color: config.navigatorTitleColor,
-            }"
-          >
-            <span>{{ config.title }}</span>
-          </div>
-        </div>
-        <div
-          class="view-content"
-          :style="{ backgroundColor: config.backgroundColor, padding }"
+      <div class="components-title">
+        <button
+          v-for="(item, index) in options"
+          :key="index"
+          @click="handleGroup(item)"
+          :class="{ active: activeGroup.group == item.group }"
         >
-          <div v-if="views.length == 0" class="view-content__empty">
-            <slot name="empty">从左侧拖拽来添加视图</slot>
-          </div>
-
-          <widget-container
-            ref="widgetCont"
-            v-model="views"
-            :active-color="activeColor"
-            :select="select"
-            @select="setSelect"
+          {{ item.name }}
+        </button>
+      </div>
+      <div class="components-content">
+        <div v-for="item in activeGroup.list" :key="item.type">
+          <draggable
+            tag="ul"
+            :list="activeGroup.list"
+            :group="{ name: 'widget', pull: 'clone', put: false }"
+            ghost-class="ghost"
+            :sort="false"
           >
-            <slot
-              slot-scope="{ view, index }"
-              name="view"
-              :data="view"
-              :index="index"
-            />
-          </widget-container>
-          <slot name="ext-view" />
+            <template v-for="(item, index) in activeGroup.list">
+              <li class="widget-item" :key="index">
+                <h4 class="widget-title">
+                  {{ item.name }}
+                </h4>
+                <div class="widget-box">{{ item.name }}</div>
+              </li>
+            </template>
+          </draggable>
         </div>
       </div>
-      <slot />
     </div>
-    <div class="drag-layout__right">
-      <slot name="page" :data="config" v-if="!select.uid" />
-      <slot
-        name="conf"
-        :data="select"
-        :index="selectIndex"
-        v-if="select.uid && views.length"
-      />
+    <div class="drag-layout__content">
+      {{ activeGroup }}
     </div>
+    <div class="drag-layout__right"></div>
   </div>
 </template>
 <script>
-import WidgetContainer from "./widget-container.vue";
-import WidgetList from "./widget-list.vue";
 export const defaultConfig = {
   title: "title",
   backgroundColor: "#f7f8f9",
   navigatorTitleColor: "#333",
   navigatorColor: "#fff",
 };
+import Draggable from "vuedraggable";
+
 export default {
   name: "v-drag-layout",
   components: {
-    WidgetList,
-    WidgetContainer,
+    Draggable,
   },
   props: {
     height: {
@@ -89,7 +64,6 @@ export default {
         config: defaultConfig,
       }),
     },
-    padding: String,
     options: {
       type: Array,
       default: () => [],
@@ -98,67 +72,12 @@ export default {
   },
   data() {
     return {
-      config: this.value.config || defaultConfig,
-      views: this.value.views,
-      select: {},
-      selectIndex: -1,
+      activeGroup: this.options[0],
     };
   },
-  watch: {
-    value: {
-      immediate: true,
-      deep: true,
-      handler(v) {
-        this.views = v.views;
-        this.config = v.config;
-      },
-    },
-    views: {
-      deep: true,
-      handler() {
-        this.handleChange();
-      },
-    },
-    page: {
-      immediate: true,
-      handler() {
-        this.handleChange();
-      },
-    },
-  },
   methods: {
-    clickNav() {
-      this.select = {};
-      this.$emit("click:nav", this.config);
-    },
-    // 如果第一参数不传则重置选中
-    setSelect(widget, index) {
-      if (!widget) {
-        this.select = {};
-        this.selectIndex = -1;
-        return;
-      }
-      this.handleWidgetSelect(widget, index);
-    },
-    handleWidgetSelect(widget = {}, index) {
-      this.select = widget;
-      if (!index) {
-        this.selectIndex = this.views.findIndex((v) => widget.uid === v.uid);
-      } else {
-        this.selectIndex = index;
-      }
-      this.$emit("select", widget, this.selectIndex);
-    },
-    handleChange() {
-      const { views, config } = this;
-      this.$emit("input", { views, config });
-    },
-    // 添加单位，如果有，%，px等单位结尾或者值为auto，直接返回，否则加上px单位结尾
-    addUnit(value = "auto", unit = "px") {
-      let reg = /^(?:-?\d+|-?\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/;
-      value = String(value);
-      // 用uView内置验证规则中的number判断是否为数值
-      return reg.test(value) ? `${value}${unit}` : value;
+    handleGroup(item) {
+      this.activeGroup = item;
     },
   },
 };
