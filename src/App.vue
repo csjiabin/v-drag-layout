@@ -17,7 +17,16 @@ export default {
             {
               type: "image",
               name: "图片",
-              icon: "icon-tupian",
+              icon: "https://vincentzyc.github.io/form-design/static/img/widget/button/button.jpg",
+              options: {
+                value: [],
+              },
+            },
+            {
+              type: "video",
+              name: "视频",
+              icon: "https://vincentzyc.github.io/form-design/static/img/widget/video/videoPlay.jpg",
+              dragOnce: true,
               options: {
                 value: [],
               },
@@ -31,7 +40,8 @@ export default {
             {
               type: "banner",
               name: "轮播图",
-              icon: "icon-tupian",
+              icon: "https://vincentzyc.github.io/form-design/static/img/widget/img/imgSlide.jpg",
+              dragOnce: true,
               options: {
                 value: [],
               },

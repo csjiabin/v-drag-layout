@@ -12,8 +12,31 @@
         </button>
       </div>
       <div class="components-content">
-        <div v-for="item in activeGroup.list" :key="item.type">
-          <draggable
+        <template v-for="(option, index) in options">
+          <keep-alive :key="index">
+            <div v-if="activeGroup.group == option.group">
+              <div
+                class="widget-item"
+                v-for="item in option.list"
+                :key="item.type"
+              >
+                <h4 class="widget-title">
+                  {{ item.name }}
+                </h4>
+
+                <draggable
+                  tag="ul"
+                  :filter="item.dragOnce ? '.disdraggable' : ''"
+                  :group="{ name: 'widget', pull: 'clone', put: false }"
+                  :sort="false"
+                  ghost-class="ghost"
+                >
+                  <li class="widget-box">
+                    <img :alt="item.name" :src="item.icon" width="100%" />
+                  </li>
+                </draggable>
+              </div>
+              <!-- <draggable
             tag="ul"
             :list="activeGroup.list"
             :group="{ name: 'widget', pull: 'clone', put: false }"
@@ -21,19 +44,36 @@
             :sort="false"
           >
             <template v-for="(item, index) in activeGroup.list">
-              <li class="widget-item" :key="index">
+              <di class="widget-item" :key="index">
                 <h4 class="widget-title">
                   {{ item.name }}
                 </h4>
                 <div class="widget-box">{{ item.name }}</div>
-              </li>
+              </di>
             </template>
-          </draggable>
-        </div>
+          </draggable> -->
+            </div>
+          </keep-alive>
+        </template>
       </div>
     </div>
     <div class="drag-layout__content">
+      <div class="toolbar">
+        <button>重置</button>
+        <button>预览</button>
+        <button>保存</button>
+      </div>
       {{ activeGroup }}
+      <draggable
+        v-model="views"
+        group="widget"
+        ghost-class="ghost"
+        :animation="200"
+        tag="ul"
+        class="drag-widget-layout"
+        handle=".drag-widget"
+      >
+      </draggable>
     </div>
     <div class="drag-layout__right"></div>
   </div>
@@ -73,6 +113,8 @@ export default {
   data() {
     return {
       activeGroup: this.options[0],
+      config: this.value.config || defaultConfig,
+      views: this.value.views,
     };
   },
   methods: {
