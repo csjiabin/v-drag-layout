@@ -25,33 +25,16 @@
                 </h4>
 
                 <draggable
-                  tag="ul"
                   :filter="item.dragOnce ? '.disdraggable' : ''"
                   :group="{ name: 'widget', pull: 'clone', put: false }"
                   :sort="false"
                   ghost-class="ghost"
                 >
-                  <li class="widget-box">
+                  <div class="widget-box">
                     <img :alt="item.name" :src="item.icon" width="100%" />
-                  </li>
+                  </div>
                 </draggable>
               </div>
-              <!-- <draggable
-            tag="ul"
-            :list="activeGroup.list"
-            :group="{ name: 'widget', pull: 'clone', put: false }"
-            ghost-class="ghost"
-            :sort="false"
-          >
-            <template v-for="(item, index) in activeGroup.list">
-              <di class="widget-item" :key="index">
-                <h4 class="widget-title">
-                  {{ item.name }}
-                </h4>
-                <div class="widget-box">{{ item.name }}</div>
-              </di>
-            </template>
-          </draggable> -->
             </div>
           </keep-alive>
         </template>
@@ -63,34 +46,51 @@
         <button>预览</button>
         <button>保存</button>
       </div>
-      {{ activeGroup }}
-      <draggable
-        v-model="views"
-        group="widget"
-        ghost-class="ghost"
-        :animation="200"
-        tag="ul"
-        class="drag-widget-layout"
-        handle=".drag-widget"
-      >
-      </draggable>
+      <div class="viewer-wrapper">
+        <div class="editor-main" style="width: 375px">
+          <div class="viewer-nav">
+            <div class="viewer-nav__statusbar">09:30AM</div>
+            <div
+              class="viewer-nav__title"
+              :style="{
+                backgroundColor: config.navigatorColor,
+                color: config.navigatorTitleColor,
+              }"
+            >
+              {{ config.title }}
+            </div>
+          </div>
+          <div
+            class="viewer-main"
+            v-click-outside="clickOutside"
+            @click="isClickOutside = true"
+          >
+            <drag-main v-model="views" />
+          </div>
+        </div>
+      </div>
     </div>
     <div class="drag-layout__right"></div>
   </div>
 </template>
 <script>
 export const defaultConfig = {
-  title: "title",
+  title: "页面标题",
   backgroundColor: "#f7f8f9",
   navigatorTitleColor: "#333",
   navigatorColor: "#fff",
 };
 import Draggable from "vuedraggable";
-
+import DragMain from "./drag-main.vue";
+import clickOutside from "./directives/click-outside.js";
 export default {
   name: "v-drag-layout",
+  directives: {
+    clickOutside,
+  },
   components: {
     Draggable,
+    DragMain,
   },
   props: {
     height: {
@@ -115,11 +115,15 @@ export default {
       activeGroup: this.options[0],
       config: this.value.config || defaultConfig,
       views: this.value.views,
+      isClickOutside: false,
     };
   },
   methods: {
     handleGroup(item) {
       this.activeGroup = item;
+    },
+    clickOutside() {
+      this.isClickOutside = false;
     },
   },
 };

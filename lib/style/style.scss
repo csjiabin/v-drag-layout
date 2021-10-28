@@ -2,13 +2,14 @@ $primary: #409eff;
 $primary-alpha: mix(#fff, $primary, 60%);
 $background-color: #ecf5ff;
 $ghost-color: #f56c6c;
+$shadow-color: rgba(65, 77, 96, 0.06);
 @import "./iconfont/iconfont.css";
 @import "./mixins.scss";
 
 .flex {
   @include flex;
   &-column {
-    @include flex("column");
+    @include flex(column);
   }
   &-wrap {
     flex-wrap: wrap;
@@ -44,6 +45,10 @@ $ghost-color: #f56c6c;
   justify-content: center;
   background: #f7f8f9;
   height: 100%;
+  overflow: hidden;
+  ::-webkit-scrollbar {
+    display: none;
+  }
   button {
     display: inline-block;
     line-height: 1;
@@ -73,9 +78,7 @@ $ghost-color: #f56c6c;
       list-style: none;
     }
   }
-  ::-webkit-scrollbar {
-    display: none;
-  }
+
   &__left,
   &__content,
   &__right {
@@ -92,15 +95,15 @@ $ghost-color: #f56c6c;
   &__left {
     overflow: hidden;
     display: flex;
-
+    box-shadow: 0 2px 6px 0px $shadow-color;
+    z-index: 10;
     .components-title {
       height: 100%;
       overflow: hidden auto;
-
       width: 120px;
       text-align: center;
       padding: 8px;
-      box-shadow: 3px 0 3px 0px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 6px 0px rgba(65, 77, 96, 0.08);
       display: flex;
       flex-direction: column;
 
@@ -158,12 +161,72 @@ $ghost-color: #f56c6c;
   // 中间布局
   &__content {
     flex: 1;
+    position: relative;
+    @include flex(column);
     .toolbar {
       background-color: #fff;
       text-align: right;
+      box-shadow: 0 2px 6px -2px $shadow-color;
+      z-index: 9;
       button {
         color: $primary;
       }
     }
+    .viewer-wrapper {
+      flex: 1;
+      overflow: auto;
+    }
+    .editor-main {
+      margin: 20px auto;
+      width: 375px;
+      background-color: #fff;
+      box-shadow: 0 2px 6px $shadow-color;
+      user-select: none;
+      overflow: hidden;
+      border-radius: 3px;
+      // 视图导航
+      .viewer-nav {
+        overflow: hidden;
+        height: 55px;
+        transition: all 0.3s;
+        cursor: pointer;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        &:hover {
+          transform: scale(0.98);
+          border-radius: 5px;
+          overflow: hidden;
+          box-shadow: 0 0 10px #afafaf;
+        }
+        &__statusbar,
+        &__title {
+          text-align: center;
+        }
+        &__statusbar {
+          font-size: 12px;
+          height: 18px;
+          line-height: 18px;
+          color: #666;
+        }
+        &__title {
+          height: 30px;
+          line-height: 30px;
+          font-size: 14px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          box-sizing: border-box;
+          padding: 0 10px;
+        }
+      }
+      .viewer-main {
+        & > div {
+          min-height: 640px;
+        }
+      }
+    }
+  }
+  &__right {
+    z-index: 10;
+    box-shadow: 0 -2px 6px 0px $shadow-color;
   }
 }

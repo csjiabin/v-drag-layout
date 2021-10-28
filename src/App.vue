@@ -52,7 +52,7 @@ export default {
       data: {
         views: [],
         config: {
-          title: "title",
+          title: "页面标题",
           backgroundColor: "#f7f8f9",
           navigatorTitleColor: "#333",
           navigatorColor: "#fff",
