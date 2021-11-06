@@ -49,6 +49,9 @@ $shadow-color: rgba(65, 77, 96, 0.06);
   ::-webkit-scrollbar {
     display: none;
   }
+  * {
+    box-sizing: border-box;
+  }
   button {
     display: inline-block;
     line-height: 1;
@@ -57,7 +60,6 @@ $shadow-color: rgba(65, 77, 96, 0.06);
     border: none;
     -webkit-appearance: none;
     text-align: center;
-    box-sizing: border-box;
     outline: 0;
     transition: all 0.2s ease;
     font-weight: 500;
@@ -71,7 +73,6 @@ $shadow-color: rgba(65, 77, 96, 0.06);
     position: relative;
     overflow: hidden;
     padding: 0 10px 10px;
-    box-sizing: border-box;
     margin: 0;
     list-style: none;
     li {
@@ -83,7 +84,6 @@ $shadow-color: rgba(65, 77, 96, 0.06);
   &__content,
   &__right {
     height: 100%;
-    box-sizing: border-box;
   }
   &__left,
   &__right {
@@ -167,7 +167,7 @@ $shadow-color: rgba(65, 77, 96, 0.06);
       background-color: #fff;
       text-align: right;
       box-shadow: 0 2px 6px -2px $shadow-color;
-      z-index: 9;
+      z-index: 10;
       button {
         color: $primary;
       }
@@ -203,24 +203,104 @@ $shadow-color: rgba(65, 77, 96, 0.06);
         }
         &__statusbar {
           font-size: 12px;
-          height: 18px;
-          line-height: 18px;
+          height: 20px;
+          line-height: 20px;
           color: #666;
         }
         &__title {
-          height: 30px;
-          line-height: 30px;
+          height: 35px;
+          line-height: 35px;
           font-size: 14px;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
-          box-sizing: border-box;
           padding: 0 10px;
         }
       }
-      .viewer-main {
-        & > div {
-          min-height: 640px;
+      > .viewer-main {
+        min-height: 640px;
+        position: relative;
+      }
+      // 在widget展示视图中
+      .viewer-item {
+        position: relative;
+        outline-offset: 0;
+        outline: 1px dashed #999;
+        background-color: rgba(236, 245, 255, 0.3);
+        margin: 3px 2px;
+        transition: all 0.25s ease;
+        min-height: 26px;
+        &:first-child {
+          margin-top: 1px;
+        }
+        &__default {
+          height: 80px;
+          line-height: 80px;
+          text-align: center;
+          color: #666;
+          font-size: 14px;
+        }
+        &__action,
+        &__drag {
+          position: absolute;
+          background: $primary;
+          z-index: 10;
+          height: 28px;
+          line-height: 28px;
+          i {
+            font-size: 14px;
+            color: #fff;
+            margin: 0 5px;
+          }
+        }
+        // 复制/删除区域
+        &__action {
+          right: -1px;
+          bottom: -1px;
+          i {
+            cursor: pointer;
+          }
+        }
+        // 移动小图标
+        &__drag {
+          right: -1px;
+          top: -1px;
+          // display: none;
+          i {
+            cursor: move;
+          }
+        }
+
+        &:after {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          display: block;
+        }
+
+        &:hover {
+          background: $background-color;
+          outline-color: $primary;
+          &.active:not(.ghost) {
+            outline: 1px solid $primary;
+          }
+
+          .viewer-item__drag {
+            display: block;
+          }
+        }
+
+        // 选中状态
+        &.active {
+          outline: 1px solid $primary;
+        }
+
+        // 拖拽移动时
+        &.ghost {
+          outline: 1px solid #f56c6c;
+          box-sizing: border-box;
         }
       }
     }

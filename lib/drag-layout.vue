@@ -42,7 +42,7 @@
     </div>
     <div class="drag-layout__content">
       <div class="toolbar">
-        <button>重置</button>
+        <button @click="handleReset">重置</button>
         <button>预览</button>
         <button>保存</button>
       </div>
@@ -60,13 +60,11 @@
               {{ config.title }}
             </div>
           </div>
-          <div
-            class="viewer-main"
+          <viewer-main
             v-click-outside="clickOutside"
-            @click="isClickOutside = true"
-          >
-            <drag-main v-model="views" />
-          </div>
+            @click.native="isClickOutside = true"
+            v-model="views"
+          />
         </div>
       </div>
     </div>
@@ -81,7 +79,7 @@ export const defaultConfig = {
   navigatorColor: "#fff",
 };
 import Draggable from "vuedraggable";
-import DragMain from "./drag-main.vue";
+import ViewerMain from "./viewer-main.vue";
 import clickOutside from "./directives/click-outside.js";
 export default {
   name: "v-drag-layout",
@@ -90,7 +88,7 @@ export default {
   },
   components: {
     Draggable,
-    DragMain,
+    ViewerMain,
   },
   props: {
     height: {
@@ -124,6 +122,9 @@ export default {
     },
     clickOutside() {
       this.isClickOutside = false;
+    },
+    handleReset() {
+      this.views = [];
     },
   },
 };
