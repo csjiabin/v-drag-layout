@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <v-drag-layout :options="options" v-model="data"> </v-drag-layout>
+    <v-drag-layout :options="options" v-model="data">
+      <template #conf="conf">
+        {{ conf }}
+      </template>
+    </v-drag-layout>
   </div>
 </template>
 

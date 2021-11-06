@@ -64,6 +64,7 @@
           </div>
           <viewer-main
             v-model="views"
+            :select="selectWidget"
             v-click-outside="clickOutside"
             @click.native="isClickOutside = true"
             @select="handleWidgetSelect"
@@ -71,7 +72,15 @@
         </div>
       </div>
     </div>
-    <div class="drag-layout__right"></div>
+    <div class="drag-layout__right">
+      <slot name="page" :data="config" v-if="!selectWidget.uid" />
+      <slot
+        name="conf"
+        :data="selectWidget"
+        :index="selectIndex"
+        v-if="selectWidget.uid && views.length"
+      />
+    </div>
   </div>
 </template>
 <script>
@@ -120,6 +129,8 @@ export default {
       config: this.value.config || defaultConfig,
       views: this.value.views,
       isClickOutside: false,
+      selectWidget: {},
+      selectIndex: -1,
     };
   },
   methods: {
@@ -131,11 +142,17 @@ export default {
     },
     clickOutside() {
       this.isClickOutside = false;
+      this.selectWidget = {};
+      this.selectIndex = -1;
     },
     handleReset() {
       this.views = [];
     },
-    handleWidgetSelect() {},
+    handleWidgetSelect(widget = {}, index) {
+      this.selectWidget = widget;
+      this.selectIndex = index;
+      this.$emit("select", widget, index);
+    },
   },
 };
 </script>

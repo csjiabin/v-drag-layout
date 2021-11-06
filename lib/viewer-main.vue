@@ -13,7 +13,9 @@
         :key="view.uid"
         :index="index"
         :views="views"
-        :select.sync="selectWidget"
+        :view="view"
+        :select="selectWidget"
+        @select="handleWidgetSelect"
       />
     </template>
   </draggable>
