@@ -21,7 +21,6 @@
 <script>
 import Draggable from "vuedraggable";
 import ViewerItem from "./viewer-item.vue";
-// import Scrollbar from "./scrollbar";
 import { uuid, cloneDeep } from "./utils/util";
 
 export default {
@@ -64,26 +63,24 @@ export default {
   },
   methods: {
     handleWidgetAdd({ newIndex }) {
-      console.log(
-        "%c 🍲 res.data: ",
-        "font-size:20px;background-color: #33A5FF;color:#fff;",
-        newIndex,
-        this.views
-      );
       // console.log("add", evt);
       // const to = evt.to;
       // console.log(to);
-      //为拖拽到容器的元素添加唯一 key
-      // const uid = uuid();
-      // let widget = this.views[newIndex];
-      // let newWidget = {
-      //   ...cloneDeep(widget),
-      //   uid,
-      //   // 绑定键值
-      //   model: widget.type + "_" + uid,
-      // };
-      // this.$set(this.views, newIndex, newWidget);
-      // this.handleWidgetSelect(newWidget, newIndex);
+      // 为拖拽到容器的元素添加唯一 key
+      const uid = uuid();
+      let widget = this.views[newIndex];
+      let newWidget = {
+        ...cloneDeep(widget),
+        uid,
+        // 绑定键值
+        model: widget.type + "_" + uid,
+      };
+      this.$set(this.views, newIndex, newWidget);
+      this.handleWidgetSelect(newWidget, newIndex);
+    },
+    handleWidgetSelect(widget, index) {
+      this.selectWidget = widget;
+      this.$emit("select", widget, index);
     },
   },
 };

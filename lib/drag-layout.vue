@@ -29,6 +29,8 @@
                   :group="{ name: 'widget', pull: 'clone', put: false }"
                   :sort="false"
                   ghost-class="ghost"
+                  :move="handleMove"
+                  :list="[item]"
                 >
                   <div class="widget-box">
                     <img :alt="item.name" :src="item.icon" width="100%" />
@@ -61,9 +63,10 @@
             </div>
           </div>
           <viewer-main
+            v-model="views"
             v-click-outside="clickOutside"
             @click.native="isClickOutside = true"
-            v-model="views"
+            @select="handleWidgetSelect"
           />
         </div>
       </div>
@@ -81,6 +84,8 @@ export const defaultConfig = {
 import Draggable from "vuedraggable";
 import ViewerMain from "./viewer-main.vue";
 import clickOutside from "./directives/click-outside.js";
+import ViewerItem from "./viewer-item.vue";
+
 export default {
   name: "v-drag-layout",
   directives: {
@@ -89,6 +94,7 @@ export default {
   components: {
     Draggable,
     ViewerMain,
+    ViewerItem,
   },
   props: {
     height: {
@@ -117,6 +123,9 @@ export default {
     };
   },
   methods: {
+    handleMove() {
+      return true;
+    },
     handleGroup(item) {
       this.activeGroup = item;
     },
@@ -126,6 +135,7 @@ export default {
     handleReset() {
       this.views = [];
     },
+    handleWidgetSelect() {},
   },
 };
 </script>
