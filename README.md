@@ -20,14 +20,9 @@ Vue.use(VDragLayout);
 
 ```html
 <template>
-  <v-drag-layout
-    :options="options"
-    v-model="data"
-    @click:nav="handleClickNavClick"
-    @select="handleWidgetSelect"
-  >
+  <v-drag-layout :options="options" v-model="data" @select="handleWidgetSelect">
     <!-- 左侧 -->
-    <template #widget="{ data }"> {{ data.name }} </template>
+    <template #widget="{ data }"> {{ data.title }} </template>
     <!-- 视图 -->
     <template #view="{ index }">
       <div style="height: 100px">{{ index }}</div>
@@ -123,10 +118,6 @@ Vue.use(VDragLayout);
       };
     },
     methods: {
-      // 点击导航
-      handleClickNavClick(config) {
-        console.log(config);
-      },
       // 视图点击
       handleWidgetSelect(view, index) {
         console.log(view, index);
