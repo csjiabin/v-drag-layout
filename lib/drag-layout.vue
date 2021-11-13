@@ -30,10 +30,14 @@
                   :sort="false"
                   ghost-class="ghost"
                   :move="handleMove"
-                  :list="[item]"
+                  :list="item.list"
                 >
-                  <div class="widget-box">
-                    <img :alt="item.name" :src="item.icon" width="100%" />
+                  <div
+                    class="widget-box"
+                    v-for="subitem in item.list"
+                    :key="subitem.type"
+                  >
+                    <img :alt="subitem.name" :src="subitem.icon" width="100%" />
                   </div>
                 </draggable>
               </div>
@@ -43,13 +47,18 @@
       </div>
     </div>
     <div class="drag-layout__content">
-      <div class="toolbar">
-        <button @click="handleReset">重置</button>
-        <button>预览</button>
-        <button>保存</button>
+      <div class="toolbar" v-if="toolbar">
+        <slot name="toolbar">
+          <button class="toolbar-btn" @click="handleClickOutside">
+            页面设置
+          </button>
+          <button class="toolbar-btn" @click="handleReset">重置</button>
+          <button class="toolbar-btn" @click="handlePreview">预览</button>
+          <button class="toolbar-btn" @click="handleSave">保存</button>
+        </slot>
       </div>
-      <div class="viewer-wrapper">
-        <div class="editor-main" style="width: 375px">
+      <div class="viewer-wrapper" @click="handleClickOutside">
+        <div class="editor-main">
           <div class="viewer-nav">
             <div class="viewer-nav__statusbar">09:30AM</div>
             <div
@@ -64,23 +73,28 @@
           </div>
           <viewer-main
             v-model="views"
-            :select="selectWidget"
-            v-click-outside="clickOutside"
-            @click.native="isClickOutside = true"
+            :select.sync="selectWidget"
+            @click.native.stop
             @select="handleWidgetSelect"
-          />
+          >
+            <slot
+              slot-scope="{ view, index }"
+              name="viewr"
+              :data="view"
+              :index="index"
+            />
+          </viewer-main>
         </div>
       </div>
     </div>
-    <div class="drag-layout__right">
-      <slot name="page" :data="config" v-if="!selectWidget.uid" />
-      <slot
-        name="conf"
-        :data="selectWidget"
-        :index="selectIndex"
-        v-if="selectWidget.uid && views.length"
-      />
-    </div>
+    <keep-alive>
+      <div class="drag-layout__right" v-if="!selectWidget.uid">
+        <slot name="page" :data="config" />
+      </div>
+      <div class="drag-layout__right" v-else>
+        <slot name="conf" :data="selectWidget" :index="selectIndex" />
+      </div>
+    </keep-alive>
   </div>
 </template>
 <script>
@@ -106,10 +120,6 @@ export default {
     ViewerItem,
   },
   props: {
-    height: {
-      type: [String, Number],
-      default: "100%",
-    },
     value: {
       type: Object,
       default: () => ({
@@ -122,16 +132,41 @@ export default {
       default: () => [],
     },
     activeColor: String,
+    toolbar: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
       activeGroup: this.options[0],
       config: this.value.config || defaultConfig,
       views: this.value.views,
-      isClickOutside: false,
       selectWidget: {},
       selectIndex: -1,
     };
+  },
+  watch: {
+    value: {
+      immediate: true,
+      deep: true,
+      handler(v) {
+        this.views = v.views;
+        this.config = v.config;
+      },
+    },
+    views: {
+      deep: true,
+      handler() {
+        this.handleChange();
+      },
+    },
+    config: {
+      deep: true,
+      handler() {
+        this.handleChange();
+      },
+    },
   },
   methods: {
     handleMove() {
@@ -140,13 +175,29 @@ export default {
     handleGroup(item) {
       this.activeGroup = item;
     },
-    clickOutside() {
-      this.isClickOutside = false;
+    handleClickOutside() {
       this.selectWidget = {};
       this.selectIndex = -1;
     },
+    handleChange() {
+      const { views, config } = this;
+      this.$emit("input", { views, config });
+    },
     handleReset() {
       this.views = [];
+      this.$emit("reset");
+    },
+    handlePreview() {
+      this.$emit("preview", {
+        config: this.config,
+        views: this.views,
+      });
+    },
+    handleSave() {
+      this.$emit("save", {
+        config: this.config,
+        views: this.views,
+      });
     },
     handleWidgetSelect(widget = {}, index) {
       this.selectWidget = widget;

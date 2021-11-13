@@ -39,7 +39,7 @@ export default defineConfig({
     // 压缩
     // minify: "esbuild",
     // 进行压缩计算
-    brotliSize: false,
+    brotliSize: true,
     lib: {
       entry: path.resolve(__dirname, 'lib/index.js'),
       name: 'VDragLayout',

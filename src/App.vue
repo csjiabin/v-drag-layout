@@ -1,8 +1,12 @@
 <template>
   <div id="app">
     <v-drag-layout :options="options" v-model="data">
-      <template #conf="conf">
-        {{ conf }}
+      <template #conf="conf">{{ conf }}</template>
+      <template #page="page">{{ page }}</template>
+      <template #viewr="{ data }">
+        <div>
+          {{ data }}
+        </div>
       </template>
     </v-drag-layout>
   </div>
@@ -21,19 +25,31 @@ export default {
             {
               type: "image",
               name: "图片",
-              icon: "https://vincentzyc.github.io/form-design/static/img/widget/button/button.jpg",
-              options: {
-                value: [],
-              },
+              list: [
+                {
+                  type: "image",
+                  name: "图片",
+                  icon: "https://vincentzyc.github.io/form-design/static/img/widget/button/button.jpg",
+                  options: {
+                    value: [],
+                  },
+                },
+              ],
             },
             {
               type: "video",
               name: "视频",
-              icon: "https://vincentzyc.github.io/form-design/static/img/widget/video/videoPlay.jpg",
-              dragOnce: true,
-              options: {
-                value: [],
-              },
+              list: [
+                {
+                  type: "video",
+                  name: "视频",
+                  icon: "https://vincentzyc.github.io/form-design/static/img/widget/video/videoPlay.jpg",
+                  dragOnce: true,
+                  options: {
+                    value: [],
+                  },
+                },
+              ],
             },
           ],
         },
@@ -44,11 +60,26 @@ export default {
             {
               type: "banner",
               name: "轮播图",
-              icon: "https://vincentzyc.github.io/form-design/static/img/widget/img/imgSlide.jpg",
-              dragOnce: true,
-              options: {
-                value: [],
-              },
+              list: [
+                {
+                  type: "banner",
+                  name: "轮播图",
+                  icon: "https://vincentzyc.github.io/form-design/static/img/widget/img/imgSlide.jpg",
+                  dragOnce: true,
+                  options: {
+                    value: [],
+                  },
+                },
+                {
+                  type: "banner1",
+                  name: "轮播图",
+                  icon: "https://vincentzyc.github.io/form-design/static/img/widget/img/imgSlide.jpg",
+                  dragOnce: true,
+                  options: {
+                    value: [],
+                  },
+                },
+              ],
             },
           ],
         },

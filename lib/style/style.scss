@@ -65,19 +65,8 @@ $shadow-color: rgba(65, 77, 96, 0.06);
     font-weight: 500;
     user-select: none;
     margin: 0;
-    padding: 10px 20px;
     font-size: 14px;
     color: #606266;
-  }
-  ul {
-    position: relative;
-    overflow: hidden;
-    padding: 0 10px 10px;
-    margin: 0;
-    list-style: none;
-    li {
-      list-style: none;
-    }
   }
 
   &__left,
@@ -110,14 +99,18 @@ $shadow-color: rgba(65, 77, 96, 0.06);
       button {
         border-radius: 60px;
         margin-bottom: 8px;
+        padding: 10px 20px;
+        transition: all 0.3s ease;
+
         &.active {
-          background-color: $primary;
-          color: #fff;
-        }
-        &:not(.active):hover {
-          color: $primary;
           background-color: $background-color;
+          color: $primary;
+          font-weight: 600;
         }
+        // &:not(.active):hover {
+        //   color: $primary;
+        //   font-weight: 600;
+        // }
       }
     }
 
@@ -164,12 +157,16 @@ $shadow-color: rgba(65, 77, 96, 0.06);
     position: relative;
     @include flex(column);
     .toolbar {
+      min-height: 34px;
       background-color: #fff;
       text-align: right;
       box-shadow: 0 2px 6px -2px $shadow-color;
       z-index: 10;
-      button {
+      padding: 0 10px;
+      &-btn {
         color: $primary;
+        padding: 10px 5px;
+        margin: 0 5px;
       }
     }
     .viewer-wrapper {
@@ -177,13 +174,23 @@ $shadow-color: rgba(65, 77, 96, 0.06);
       overflow: auto;
     }
     .editor-main {
-      margin: 20px auto;
+      margin: 40px auto 0;
       width: 375px;
       background-color: #fff;
       box-shadow: 0 2px 6px $shadow-color;
       user-select: none;
-      overflow: hidden;
+      // overflow: hidden;
       border-radius: 3px;
+      position: relative;
+      &:before {
+        border-top: 1px dashed rgba(0, 0, 0, 0.3);
+        color: rgba(0, 0, 0, 0.3);
+        content: "主流机型高度";
+        font-size: 12px;
+        left: -80px;
+        position: absolute;
+        top: 695px;
+      }
       // 视图导航
       .viewer-nav {
         overflow: hidden;
@@ -191,6 +198,10 @@ $shadow-color: rgba(65, 77, 96, 0.06);
         transition: all 0.3s;
         cursor: pointer;
         border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        // position: sticky;
+        // top: 0;
+        // z-index: 99;
+        // background-color: #fff;
         &:hover {
           transform: scale(0.98);
           border-radius: 5px;
@@ -225,17 +236,14 @@ $shadow-color: rgba(65, 77, 96, 0.06);
       .viewer-item {
         position: relative;
         outline-offset: 0;
-        outline: 1px dashed #999;
+        outline: 1px dashed transparent;
         background-color: rgba(236, 245, 255, 0.3);
-        margin: 3px 2px;
+        margin: 1px 0;
         transition: all 0.25s ease;
-        min-height: 26px;
         &:first-child {
           margin-top: 1px;
         }
         &__default {
-          height: 80px;
-          line-height: 80px;
           text-align: center;
           color: #666;
           font-size: 14px;
@@ -243,10 +251,8 @@ $shadow-color: rgba(65, 77, 96, 0.06);
         &__action,
         &__drag {
           position: absolute;
-          background: $primary;
           z-index: 10;
-          height: 28px;
-          line-height: 28px;
+
           i {
             font-size: 14px;
             color: #fff;
@@ -255,14 +261,33 @@ $shadow-color: rgba(65, 77, 96, 0.06);
         }
         // 复制/删除区域
         &__action {
-          right: -1px;
-          bottom: -1px;
-          i {
+          top: 0;
+          right: -34px;
+          @include flex(column);
+          align-items: center;
+
+          &--btn {
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
             cursor: pointer;
+            background-color: #fff;
+            border-radius: 2px;
+            @include flex(column);
+            align-items: center;
+            box-shadow: 0 2px 6px 0 $shadow-color;
+            &:not(:last-child) {
+              margin-bottom: 4px;
+            }
+          }
+          i {
+            color: #828b9f;
           }
         }
         // 移动小图标
         &__drag {
+          height: 28px;
+          line-height: 28px;
           right: -1px;
           top: -1px;
           // display: none;
@@ -307,6 +332,7 @@ $shadow-color: rgba(65, 77, 96, 0.06);
   }
   &__right {
     z-index: 10;
+    width: 490px;
     box-shadow: 0 -2px 6px 0px $shadow-color;
   }
 }
