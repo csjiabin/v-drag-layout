@@ -27,8 +27,8 @@
 </template>
 <script>
 import Draggable from "vuedraggable";
-import ViewerItem from "./viewer-item.vue";
-import { uuid, cloneDeep } from "./utils/util";
+import ViewerItem from "lib/viewer-item.vue";
+import { uuid, cloneDeep } from "lib/utils/util";
 
 export default {
   name: "v-drag-viewer",

@@ -45,6 +45,7 @@ $shadow-color: rgba(65, 77, 96, 0.06);
   justify-content: center;
   background: #f7f8f9;
   height: 100%;
+  min-width: 1400px;
   overflow: hidden;
   ::-webkit-scrollbar {
     display: none;
@@ -107,10 +108,10 @@ $shadow-color: rgba(65, 77, 96, 0.06);
           color: $primary;
           font-weight: 600;
         }
-        // &:not(.active):hover {
-        //   color: $primary;
-        //   font-weight: 600;
-        // }
+        &:not(.active):hover {
+          color: $primary;
+          background-color: $background-color;
+        }
       }
     }
 
@@ -231,6 +232,14 @@ $shadow-color: rgba(65, 77, 96, 0.06);
       > .viewer-main {
         min-height: 640px;
         position: relative;
+        &__empty {
+          font-size: 14px;
+          color: #ccc;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
       }
       // 在widget展示视图中
       .viewer-item {
@@ -332,7 +341,7 @@ $shadow-color: rgba(65, 77, 96, 0.06);
   }
   &__right {
     z-index: 10;
-    width: 490px;
+    width: 450px;
     box-shadow: 0 -2px 6px 0px $shadow-color;
   }
 }

@@ -5,6 +5,7 @@ node_modules
 .gitignore
 vite.config.js
 index.html
+/lib_v1
 
 # Log files
 npm-debug.log*

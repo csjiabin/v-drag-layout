@@ -6,22 +6,22 @@
           v-for="(item, index) in options"
           :key="index"
           @click="handleGroup(item)"
-          :class="{ active: activeGroup.group == item.group }"
+          :class="{ active: activeGroup.type == item.type }"
         >
-          {{ item.name }}
+          {{ item.label }}
         </button>
       </div>
       <div class="components-content">
         <template v-for="(option, index) in options">
           <keep-alive :key="index">
-            <div v-if="activeGroup.group == option.group">
+            <div v-if="activeGroup.type == option.type">
               <div
                 class="widget-item"
                 v-for="item in option.list"
                 :key="item.type"
               >
                 <h4 class="widget-title">
-                  {{ item.name }}
+                  {{ item.label }}
                 </h4>
 
                 <draggable
@@ -37,7 +37,13 @@
                     v-for="subitem in item.list"
                     :key="subitem.type"
                   >
-                    <img :alt="subitem.name" :src="subitem.icon" width="100%" />
+                    <slot name="widget" :data="subitem">
+                      <img
+                        :alt="subitem.label"
+                        :src="subitem.icon"
+                        width="100%"
+                      />
+                    </slot>
                   </div>
                 </draggable>
               </div>
@@ -71,7 +77,11 @@
               {{ config.title }}
             </div>
           </div>
+          <div v-if="views.length == 0" class="viewer-main__empty">
+            <slot name="empty">{{ emptyText }}</slot>
+          </div>
           <viewer-main
+            ref="viewer"
             v-model="views"
             :select.sync="selectWidget"
             @click.native.stop
@@ -79,7 +89,7 @@
           >
             <slot
               slot-scope="{ view, index }"
-              name="viewr"
+              name="view"
               :data="view"
               :index="index"
             />
@@ -95,20 +105,20 @@
         <slot name="conf" :data="selectWidget" :index="selectIndex" />
       </div>
     </keep-alive>
+    <div id="heatmap"></div>
   </div>
 </template>
 <script>
-export const defaultConfig = {
+const defaultConfig = {
   title: "页面标题",
   backgroundColor: "#f7f8f9",
   navigatorTitleColor: "#333",
   navigatorColor: "#fff",
 };
 import Draggable from "vuedraggable";
-import ViewerMain from "./viewer-main.vue";
-import clickOutside from "./directives/click-outside.js";
-import ViewerItem from "./viewer-item.vue";
-
+import ViewerMain from "lib/viewer-main.vue";
+import clickOutside from "lib/directives/click-outside.js";
+import ViewerItem from "lib/viewer-item.vue";
 export default {
   name: "v-drag-layout",
   directives: {
@@ -135,6 +145,10 @@ export default {
     toolbar: {
       type: Boolean,
       default: true,
+    },
+    emptyText: {
+      type: String,
+      default: "请在左侧选择页面组件",
     },
   },
   data() {

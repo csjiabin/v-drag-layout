@@ -1,12 +1,22 @@
 <template>
   <div id="app">
     <v-drag-layout :options="options" v-model="data">
-      <template #conf="conf">{{ conf }}</template>
-      <template #page="page">{{ page }}</template>
-      <template #viewr="{ data }">
-        <div>
-          {{ data }}
+      <template #widget="scope">
+        <img
+          :alt="scope.data.label"
+          :src="scope.data.icon"
+          width="100%"
+          :title="scope.data.label"
+        />
+      </template>
+      <template #conf="scope">{{ scope.data.label }}</template>
+      <template #page="scope">
+        <div v-for="(val, key) in scope.data" :key="key">
+          {{ key }}: {{ val }}
         </div>
+      </template>
+      <template #view="scope">
+        <img :src="scope.data.icon" width="100%" />
       </template>
     </v-drag-layout>
   </div>
@@ -19,16 +29,16 @@ export default {
     return {
       options: [
         {
-          group: "base",
-          name: "基础",
+          type: "base",
+          label: "基础",
           list: [
             {
               type: "image",
-              name: "图片",
+              label: "图片",
               list: [
                 {
                   type: "image",
-                  name: "图片",
+                  label: "图片",
                   icon: "https://vincentzyc.github.io/form-design/static/img/widget/button/button.jpg",
                   options: {
                     value: [],
@@ -38,11 +48,11 @@ export default {
             },
             {
               type: "video",
-              name: "视频",
+              label: "视频",
               list: [
                 {
                   type: "video",
-                  name: "视频",
+                  label: "视频",
                   icon: "https://vincentzyc.github.io/form-design/static/img/widget/video/videoPlay.jpg",
                   dragOnce: true,
                   options: {
@@ -54,16 +64,16 @@ export default {
           ],
         },
         {
-          group: "advanced",
-          name: "高级",
+          type: "advanced",
+          label: "高级",
           list: [
             {
               type: "banner",
-              name: "轮播图",
+              label: "轮播图",
               list: [
                 {
                   type: "banner",
-                  name: "轮播图",
+                  label: "轮播图",
                   icon: "https://vincentzyc.github.io/form-design/static/img/widget/img/imgSlide.jpg",
                   dragOnce: true,
                   options: {
@@ -72,7 +82,7 @@ export default {
                 },
                 {
                   type: "banner1",
-                  name: "轮播图",
+                  label: "轮播图1",
                   icon: "https://vincentzyc.github.io/form-design/static/img/widget/img/imgSlide.jpg",
                   dragOnce: true,
                   options: {

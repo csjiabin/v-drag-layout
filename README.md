@@ -37,7 +37,7 @@ Vue.use(VDragLayout);
     <!-- 视图 -->
     <template #conf="{ data }">{{ data }} </template>
     <!-- 页面 -->
-    <!-- <template #page="{ data }">{{ data }}</template> -->
+    <template #page="{ data }">{{ data }}</template>
   </v-drag-layout>
 </template>
 <script>
@@ -46,20 +46,69 @@ Vue.use(VDragLayout);
       return {
         options: [
           {
-            type: "banner",
-            name: "轮播图",
-            icon: "icon-tupian",
-            options: {
-              value: [],
-            },
+            type: "base",
+            label: "基础",
+            list: [
+              {
+                type: "image",
+                label: "图片",
+                list: [
+                  {
+                    type: "image",
+                    label: "图片",
+                    icon: "https://vincentzyc.github.io/form-design/static/img/widget/button/button.jpg",
+                    options: {
+                      value: [],
+                    },
+                  },
+                ],
+              },
+              {
+                type: "video",
+                label: "视频",
+                list: [
+                  {
+                    type: "video",
+                    label: "视频",
+                    icon: "https://vincentzyc.github.io/form-design/static/img/widget/video/videoPlay.jpg",
+                    dragOnce: true,
+                    options: {
+                      value: [],
+                    },
+                  },
+                ],
+              },
+            ],
           },
           {
-            type: "image",
-            name: "图片",
-            icon: "icon-tupian",
-            options: {
-              value: [],
-            },
+            type: "advanced",
+            label: "高级",
+            list: [
+              {
+                type: "banner",
+                label: "轮播图",
+                list: [
+                  {
+                    type: "banner",
+                    label: "轮播图",
+                    icon: "https://vincentzyc.github.io/form-design/static/img/widget/img/imgSlide.jpg",
+                    dragOnce: true,
+                    options: {
+                      value: [],
+                    },
+                  },
+                  {
+                    type: "banner1",
+                    label: "轮播图1",
+                    icon: "https://vincentzyc.github.io/form-design/static/img/widget/img/imgSlide.jpg",
+                    dragOnce: true,
+                    options: {
+                      value: [],
+                    },
+                  },
+                ],
+              },
+            ],
           },
         ],
         data: {
@@ -87,4 +136,4 @@ Vue.use(VDragLayout);
 </script>
 ```
 
-![效果](https://github.com/csjiabin/v-drag-layout/blob/master/src/1630042869.jpg)
+![效果](https://github.com/csjiabin/v-drag-layout/blob/master/src/v2.png)
