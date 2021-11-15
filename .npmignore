@@ -4,6 +4,8 @@ node_modules
 vite.config.js
 index.html
 /lib_v1
+/lib/icons
+/lib/svg-icon.vue
 
 # Log files
 npm-debug.log*

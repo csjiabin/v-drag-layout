@@ -105,7 +105,6 @@
         <slot name="conf" :data="selectWidget" :index="selectIndex" />
       </div>
     </keep-alive>
-    <div id="heatmap"></div>
   </div>
 </template>
 <script>
@@ -116,9 +115,9 @@ const defaultConfig = {
   navigatorColor: "#fff",
 };
 import Draggable from "vuedraggable";
-import ViewerMain from "lib/viewer-main.vue";
-import clickOutside from "lib/directives/click-outside.js";
-import ViewerItem from "lib/viewer-item.vue";
+import ViewerMain from "./viewer-main.vue";
+import clickOutside from "./directives/click-outside.js";
+import ViewerItem from "./viewer-item.vue";
 export default {
   name: "v-drag-layout",
   directives: {

@@ -64,7 +64,7 @@ export const svgBuilder = (path, perfix = 'icon') => {
         '<body>',
         `
           <body>
-            <svg id="${idPerfix}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="position: absolute; width: 0; height: 0">
+            <svg id="${idPerfix}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="position: absolute; width: 0; height: 0" aria-hidden="true">
               ${res.join('')}
             </svg>
         `
