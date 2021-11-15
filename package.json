@@ -1,6 +1,6 @@
 {
   "name": "v-drag-layout",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "private": false,
   "author": "csjiabin <hjbmeow@163.com>",
   "files": [
@@ -30,6 +30,7 @@
     "autoprefixer": "^10.3.7",
     "sass": "~1.32.6",
     "sass-loader": "^12.1.0",
+    "svg-sprite-loader": "^6.0.11",
     "vite": "^2.5.1",
     "vite-plugin-imp": "^2.0.9",
     "vite-plugin-vue2": "^1.8.1",

@@ -17,13 +17,15 @@
         class="viewer-item__action--btn"
         @click.stop="$emit('clone', view, index)"
       >
-        <i class="dragicon dragicon-copy" />
+        <!-- <i class="dragicon dragicon-copy" /> -->
+        <drag-svg-icon class-name="dragicon" icon="copy" />
       </button>
       <button
         class="viewer-item__action--btn"
         @click.stop="$emit('remove', view, index)"
       >
-        <i class="dragicon dragicon-trash" />
+        <!-- <i class="dragicon dragicon-trash" /> -->
+        <drag-svg-icon class-name="dragicon" icon="trash" />
       </button>
     </div>
     <!-- <div class="viewer-item__drag" v-if="active">
@@ -32,8 +34,12 @@
   </div>
 </template>
 <script>
+import DragSvgIcon from "./svg-icon.vue";
 export default {
   name: "v-drag-viewer-item",
+  components: {
+    DragSvgIcon,
+  },
   props: {
     index: {
       type: Number,

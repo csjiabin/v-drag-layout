@@ -1,47 +1,19 @@
-$primary: #409eff;
-$primary-alpha: mix(#fff, $primary, 60%);
-$background-color: #ecf5ff;
-$ghost-color: #f56c6c;
-$shadow-color: rgba(65, 77, 96, 0.06);
-@import "./iconfont/iconfont.css";
+$--drag-primary: #409eff !default;
+$--drag-primary-alpha: mix(#fff, $--drag-primary, 60%) !default;
+$--drag-background-color: mix(#fff, $--drag-primary, 90%) !default;
+$--drag-ghost-color: #f56c6c !default;
+$--drag-shadow-color: rgba(65, 77, 96, 0.06) !default;
 @import "./mixins.scss";
-
-.flex {
-  @include flex;
-  &-column {
-    @include flex(column);
-  }
-  &-wrap {
-    flex-wrap: wrap;
-  }
-  &-1 {
-    flex: 1;
-  }
-  &-justify-start {
-    justify-content: flex-start;
-  }
-  &-justify-center {
-    justify-content: center;
-  }
-  &-justify-end {
-    justify-content: flex-end;
-  }
-  &-justify-between {
-    justify-content: space-between;
-  }
-  &-align-start {
-    align-items: flex-start;
-  }
-  &-align-center {
-    align-items: center;
-  }
-  &-align-end {
-    align-items: flex-end;
-  }
+.drag-svg-icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
 }
 
 .drag-layout {
-  display: flex;
+  @include flex;
   justify-content: center;
   background: #f7f8f9;
   height: 100%;
@@ -84,8 +56,8 @@ $shadow-color: rgba(65, 77, 96, 0.06);
   // 左侧布局
   &__left {
     overflow: hidden;
-    display: flex;
-    box-shadow: 0 2px 6px 0px $shadow-color;
+    @include flex;
+    box-shadow: 0 2px 6px 0px $--drag-shadow-color;
     z-index: 10;
     .components-title {
       height: 100%;
@@ -94,7 +66,7 @@ $shadow-color: rgba(65, 77, 96, 0.06);
       text-align: center;
       padding: 8px;
       box-shadow: 0 2px 6px 0px rgba(65, 77, 96, 0.08);
-      display: flex;
+      @include flex;
       flex-direction: column;
 
       button {
@@ -104,13 +76,13 @@ $shadow-color: rgba(65, 77, 96, 0.06);
         transition: all 0.3s ease;
 
         &.active {
-          background-color: $background-color;
-          color: $primary;
+          background-color: $--drag-background-color;
+          color: $--drag-primary;
           font-weight: 600;
         }
         &:not(.active):hover {
-          color: $primary;
-          background-color: $background-color;
+          color: $--drag-primary;
+          background-color: $--drag-background-color;
         }
       }
     }
@@ -142,8 +114,8 @@ $shadow-color: rgba(65, 77, 96, 0.06);
         }
 
         &:hover {
-          color: $primary;
-          box-shadow: 0 0 6px 3px $primary-alpha;
+          color: $--drag-primary;
+          box-shadow: 0 0 6px 3px $--drag-primary-alpha;
         }
 
         &.disdraggable {
@@ -161,11 +133,11 @@ $shadow-color: rgba(65, 77, 96, 0.06);
       min-height: 34px;
       background-color: #fff;
       text-align: right;
-      box-shadow: 0 2px 6px -2px $shadow-color;
+      box-shadow: 0 2px 6px -2px $--drag-shadow-color;
       z-index: 10;
       padding: 0 10px;
       &-btn {
-        color: $primary;
+        color: $--drag-primary;
         padding: 10px 5px;
         margin: 0 5px;
       }
@@ -178,7 +150,7 @@ $shadow-color: rgba(65, 77, 96, 0.06);
       margin: 40px auto 0;
       width: 375px;
       background-color: #fff;
-      box-shadow: 0 2px 6px $shadow-color;
+      box-shadow: 0 2px 6px $--drag-shadow-color;
       user-select: none;
       // overflow: hidden;
       border-radius: 3px;
@@ -284,12 +256,13 @@ $shadow-color: rgba(65, 77, 96, 0.06);
             border-radius: 2px;
             @include flex(column);
             align-items: center;
-            box-shadow: 0 2px 6px 0 $shadow-color;
+            justify-content: center;
+            box-shadow: 0 2px 6px 0 $--drag-shadow-color;
             &:not(:last-child) {
               margin-bottom: 4px;
             }
           }
-          i {
+          .dragicon {
             color: #828b9f;
           }
         }
@@ -315,10 +288,10 @@ $shadow-color: rgba(65, 77, 96, 0.06);
         }
 
         &:hover {
-          background: $background-color;
-          outline-color: $primary;
+          background: $--drag-background-color;
+          outline-color: $--drag-primary;
           &.active:not(.ghost) {
-            outline: 1px solid $primary;
+            outline: 1px solid $--drag-primary;
           }
 
           .viewer-item__drag {
@@ -328,7 +301,7 @@ $shadow-color: rgba(65, 77, 96, 0.06);
 
         // 选中状态
         &.active {
-          outline: 1px solid $primary;
+          outline: 1px solid $--drag-primary;
         }
 
         // 拖拽移动时
@@ -342,6 +315,6 @@ $shadow-color: rgba(65, 77, 96, 0.06);
   &__right {
     z-index: 10;
     width: 450px;
-    box-shadow: 0 -2px 6px 0px $shadow-color;
+    box-shadow: 0 -2px 6px 0px $--drag-shadow-color;
   }
 }
