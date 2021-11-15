@@ -1,8 +1,10 @@
+@import "./vars.scss";
 @font-face {
   font-family: "dragicon"; /* Project id 2771121 */
-  src: url('iconfont.woff2?t=1629967074581') format('woff2'),
-       url('iconfont.woff?t=1629967074581') format('woff'),
-       url('iconfont.ttf?t=1629967074581') format('truetype');
+  src: url("#{$--drag-font-path}/iconfont.woff2?t=1629967074581")
+      format("woff2"),
+    url("#{$--drag-font-path}/iconfont.woff?t=1629967074581") format("woff"),
+    url("#{$--drag-font-path}/iconfont.ttf?t=1629967074581") format("truetype");
 }
 
 .dragicon {
@@ -24,4 +26,3 @@
 .dragicon-trash:before {
   content: "\e604";
 }
-

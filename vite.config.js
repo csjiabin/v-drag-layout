@@ -4,7 +4,7 @@ import { defineConfig } from 'vite'
 import { createVuePlugin } from "vite-plugin-vue2";
 import vitePluginImp from 'vite-plugin-imp'
 import { version } from "./package.json";
-import { svgBuilder } from './plugins/svgBuilder';
+// import { svgBuilder } from './plugins/svgBuilder';
 // const banner =
 //   "/*!\n" +
 //   ` * v-drag-layout v${version}\n` +
@@ -19,7 +19,7 @@ export default defineConfig({
     vitePluginImp({
       libList: [require('autoprefixer')]
     }),
-    svgBuilder('./lib/icons/svg/', 'v-dragicon')
+    // svgBuilder('./lib/icons/svg/', 'v-dragicon')
   ],
   resolve: {
     alias: {
