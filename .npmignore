@@ -1,6 +1,5 @@
 .DS_Store
 node_modules
-/public
 .gitignore
 vite.config.js
 index.html

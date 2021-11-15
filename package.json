@@ -1,10 +1,11 @@
 {
   "name": "v-drag-layout",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "private": false,
   "author": "csjiabin <hjbmeow@163.com>",
   "files": [
-    "dist"
+    "dist",
+    "lib"
   ],
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",

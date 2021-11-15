@@ -66,7 +66,6 @@ Vue.use(VDragLayout);
                     type: "video",
                     label: "视频",
                     icon: "https://vincentzyc.github.io/form-design/static/img/widget/video/videoPlay.jpg",
-                    dragOnce: true,
                     options: {
                       value: [],
                     },
@@ -87,7 +86,6 @@ Vue.use(VDragLayout);
                     type: "banner",
                     label: "轮播图",
                     icon: "https://vincentzyc.github.io/form-design/static/img/widget/img/imgSlide.jpg",
-                    dragOnce: true,
                     options: {
                       value: [],
                     },
@@ -96,7 +94,6 @@ Vue.use(VDragLayout);
                     type: "banner1",
                     label: "轮播图1",
                     icon: "https://vincentzyc.github.io/form-design/static/img/widget/img/imgSlide.jpg",
-                    dragOnce: true,
                     options: {
                       value: [],
                     },
