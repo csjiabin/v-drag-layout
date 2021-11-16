@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-drag-layout :options="options" v-model="data">
-      <template #toolbal> 自定义工具栏 </template>
+      <template #toolbar> 自定义工具栏 </template>
       <template #widget="scope">
         <img
           :alt="scope.data.label"

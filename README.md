@@ -21,6 +21,7 @@ Vue.use(VDragLayout);
 ```html
 <template>
   <v-drag-layout :options="options" v-model="data" @select="handleWidgetSelect">
+    <template #toolbar> 自定义工具栏 </template>
     <!-- 左侧 -->
     <template #widget="{ data }"> {{ data.title }} </template>
     <!-- 视图 -->
