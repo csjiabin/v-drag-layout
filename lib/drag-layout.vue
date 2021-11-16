@@ -53,7 +53,7 @@
       </div>
     </div>
     <div class="drag-layout__content">
-      <div class="toolbar" v-if="toolbar">
+      <div class="drag-layout__content--toolbar" v-if="toolbar">
         <slot name="toolbar">
           <button class="toolbar-btn" @click="handleClickOutside">
             页面设置

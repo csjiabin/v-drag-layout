@@ -128,13 +128,14 @@
     flex: 1;
     position: relative;
     @include flex(column);
-    .toolbar {
+    &--toolbar {
       min-height: 34px;
       background-color: #fff;
-      text-align: right;
       box-shadow: 0 2px 6px -2px $--drag-shadow-color;
       z-index: 10;
       padding: 0 10px;
+      @include flex;
+      justify-content: flex-end;
       &-btn {
         color: $--drag-primary;
         padding: 10px 5px;
