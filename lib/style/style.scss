@@ -203,9 +203,12 @@
           padding: 0 10px;
         }
       }
-      > .viewer-main {
-        min-height: 640px;
+      .viewer-body {
         position: relative;
+        > .viewer-main {
+          min-height: 640px;
+          position: relative;
+        }
         &__empty {
           font-size: 14px;
           color: #ccc;
@@ -215,6 +218,10 @@
           transform: translate(-50%, -50%);
         }
       }
+      // 拖拽移动时
+      .widget-box.ghost {
+        @include drag;
+      }
       // 在widget展示视图中
       .viewer-item {
         position: relative;
@@ -223,6 +230,8 @@
         background-color: rgba(236, 245, 255, 0.3);
         margin: 1px 0;
         transition: all 0.25s ease;
+        cursor: move;
+
         &:first-child {
           margin-top: 1px;
         }
@@ -290,7 +299,6 @@
         }
 
         &:hover {
-          background: $--drag-background-color;
           outline-color: $--drag-primary;
           &.active:not(.ghost) {
             outline: 1px solid $--drag-primary;
@@ -308,8 +316,7 @@
 
         // 拖拽移动时
         &.ghost {
-          outline: 1px solid #f56c6c;
-          box-sizing: border-box;
+          @include drag;
         }
       }
     }

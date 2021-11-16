@@ -16,6 +16,7 @@
       <button
         class="viewer-item__action--btn"
         @click.stop="$emit('clone', view, index)"
+        v-if="!view.dragOnce"
       >
         <i class="dragicon dragicon-copy" />
         <!-- <drag-svg-icon class-name="dragicon" icon="copy" /> -->

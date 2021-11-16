@@ -80,23 +80,26 @@
               {{ config.title }}
             </div>
           </div>
-          <div v-if="views.length == 0" class="viewer-main__empty">
-            <slot name="empty">{{ emptyText }}</slot>
+
+          <div class="viewer-body">
+            <div v-if="views.length == 0" class="viewer-body__empty">
+              <slot name="empty">{{ emptyText }}</slot>
+            </div>
+            <viewer-main
+              ref="viewer"
+              v-model="views"
+              :select.sync="selectWidget"
+              @click.native.stop
+              @select="handleWidgetSelect"
+            >
+              <slot
+                slot-scope="{ view, index }"
+                name="view"
+                :data="view"
+                :index="index"
+              />
+            </viewer-main>
           </div>
-          <viewer-main
-            ref="viewer"
-            v-model="views"
-            :select.sync="selectWidget"
-            @click.native.stop
-            @select="handleWidgetSelect"
-          >
-            <slot
-              slot-scope="{ view, index }"
-              name="view"
-              :data="view"
-              :index="index"
-            />
-          </viewer-main>
         </div>
       </div>
     </div>
@@ -192,7 +195,7 @@ export default {
       this.activeGroup = item;
     },
     handleClickOutside() {
-      this.setSelect();
+      this.cancelSelect();
     },
     handleChange() {
       const { views, config } = this;
@@ -200,6 +203,7 @@ export default {
     },
     handleReset() {
       this.views = [];
+      this.cancelSelect();
       this.$emit("reset");
     },
     handlePreview() {
@@ -217,11 +221,14 @@ export default {
     // 如果第一参数不传则重置选中
     setSelect(widget, index) {
       if (!widget) {
-        this.selectWidget = {};
-        this.selectIndex = -1;
+        this.cancelSelect();
         return;
       }
       this.handleWidgetSelect(widget, index);
+    },
+    cancelSelect() {
+      this.selectWidget = {};
+      this.selectIndex = -1;
     },
     handleWidgetSelect(widget = {}, index) {
       this.selectWidget = widget;

@@ -4,25 +4,24 @@
     group="widget"
     ghost-class="ghost"
     :animation="200"
-    class="viewer-main"
     handle=".drag-widget"
     @add="handleWidgetAdd"
+    class="viewer-main"
   >
-    <template v-for="(view, index) in views">
-      <viewer-item
-        :id="view.uid"
-        :key="view.uid"
-        :index="index"
-        :views="views"
-        :view="view"
-        :select="selectWidget"
-        @select="handleWidgetSelect"
-        @clone="handleWidgetClone"
-        @remove="handleWidgetRemove"
-      >
-        <slot :view="view" :index="index" />
-      </viewer-item>
-    </template>
+    <viewer-item
+      v-for="(view, index) in views"
+      :id="view.uid"
+      :key="view.uid || view.type"
+      :index="index"
+      :views="views"
+      :view="view"
+      :select="selectWidget"
+      @select="handleWidgetSelect"
+      @clone="handleWidgetClone"
+      @remove="handleWidgetRemove"
+    >
+      <slot :view="view" :index="index" />
+    </viewer-item>
   </draggable>
 </template>
 <script>
@@ -31,7 +30,7 @@ import ViewerItem from "./viewer-item.vue";
 import { uuid, cloneDeep } from "./utils/util";
 
 export default {
-  name: "v-drag-viewer",
+  name: "v-drag-viewer-main",
   components: {
     Draggable,
     ViewerItem,
