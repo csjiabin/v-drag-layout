@@ -73,15 +73,17 @@
         margin-bottom: 8px;
         padding: 10px 20px;
         transition: all 0.3s ease;
-
         &.active {
           background-color: $--drag-background-color;
           color: $--drag-primary;
-          font-weight: 600;
+          transition: all 0.3s ease;
+        }
+        &:hover {
+          transition: all 0.3s ease;
         }
         &:not(.active):hover {
           color: $--drag-primary;
-          background-color: $--drag-background-color;
+          background-color: $--drag-background-hover-color;
         }
       }
     }
@@ -108,17 +110,15 @@
         border-radius: 4px;
         margin: 20px 0;
         transition: all 0.2s ease;
-        img {
-          vertical-align: middle;
+        &.disdraggable {
+          cursor: no-drop;
         }
-
         &:hover {
           color: $--drag-primary;
           box-shadow: 0 0 6px 3px $--drag-primary-alpha;
         }
-
-        &.disdraggable {
-          cursor: no-drop;
+        img {
+          vertical-align: middle;
         }
       }
     }
@@ -136,7 +136,7 @@
       padding: 0 10px;
       @include flex;
       justify-content: flex-end;
-      &-btn {
+      .toolbar-btn {
         color: $--drag-primary;
         padding: 10px 5px;
         margin: 0 5px;

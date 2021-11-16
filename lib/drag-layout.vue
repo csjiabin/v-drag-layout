@@ -21,11 +21,13 @@
                 :key="item.type"
               >
                 <h4 class="widget-title">
-                  {{ item.label }}
+                  <slot name="widget-title" :data="item">
+                    {{ item.label }}
+                  </slot>
                 </h4>
 
                 <draggable
-                  :filter="item.dragOnce ? '.disdraggable' : ''"
+                  :filter="'.disdraggable'"
                   :group="{ name: 'widget', pull: 'clone', put: false }"
                   :sort="false"
                   ghost-class="ghost"
@@ -33,9 +35,10 @@
                   :list="item.list"
                 >
                   <div
-                    class="widget-box"
                     v-for="subitem in item.list"
                     :key="subitem.type"
+                    class="widget-box"
+                    :class="{ disdraggable: disFormList(subitem) }"
                   >
                     <slot name="widget" :data="subitem">
                       <img
@@ -189,8 +192,7 @@ export default {
       this.activeGroup = item;
     },
     handleClickOutside() {
-      this.selectWidget = {};
-      this.selectIndex = -1;
+      this.setSelect();
     },
     handleChange() {
       const { views, config } = this;
@@ -212,10 +214,23 @@ export default {
         views: this.views,
       });
     },
+    // 如果第一参数不传则重置选中
+    setSelect(widget, index) {
+      if (!widget) {
+        this.selectWidget = {};
+        this.selectIndex = -1;
+        return;
+      }
+      this.handleWidgetSelect(widget, index);
+    },
     handleWidgetSelect(widget = {}, index) {
       this.selectWidget = widget;
       this.selectIndex = index;
       this.$emit("select", widget, index);
+    },
+    disFormList(wgItem) {
+      if (!wgItem.dragOnce) return false;
+      return this.views.some((v) => v.type === wgItem.type);
     },
   },
 };

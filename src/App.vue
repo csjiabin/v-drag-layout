@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <v-drag-layout :options="options" v-model="data">
+      <template #toolbal> 自定义工具栏 </template>
       <template #widget="scope">
         <img
           :alt="scope.data.label"
@@ -84,7 +85,6 @@ export default {
                   type: "banner1",
                   label: "轮播图1",
                   icon: "https://vincentzyc.github.io/form-design/static/img/widget/img/imgSlide.jpg",
-                  dragOnce: true,
                   options: {
                     value: [],
                   },

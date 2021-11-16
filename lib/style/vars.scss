@@ -1,6 +1,7 @@
 $--drag-primary: #409eff !default;
 $--drag-primary-alpha: mix(#fff, $--drag-primary, 60%) !default;
-$--drag-background-color: mix(#fff, $--drag-primary, 90%) !default;
+$--drag-background-color: mix(#fff, $--drag-primary, 85%) !default;
+$--drag-background-hover-color: mix(#fff, $--drag-primary, 95%) !default;
 $--drag-ghost-color: #f56c6c !default;
 $--drag-shadow-color: rgba(65, 77, 96, 0.06) !default;
 $--drag-font-path: "./fonts";
