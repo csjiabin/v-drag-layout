@@ -38,7 +38,6 @@
     user-select: none;
     margin: 0;
     font-size: 14px;
-    color: #606266;
   }
 
   &__left,
@@ -73,6 +72,8 @@
         margin-bottom: 8px;
         padding: 10px 20px;
         transition: all 0.3s ease;
+        color: #606266;
+
         &.active {
           background-color: $--drag-background-color;
           color: $--drag-primary;
@@ -136,6 +137,7 @@
       padding: 0 10px;
       @include flex;
       justify-content: flex-end;
+      align-items: center;
       .toolbar-btn {
         color: $--drag-primary;
         padding: 10px 5px;
