@@ -52,7 +52,7 @@ Vue.use(VDragLayout);
                   {
                     type: "image",
                     label: "图片",
-                    icon: "https://vincentzyc.github.io/form-design/static/img/widget/button/button.jpg",
+                    icon: "https://image.jpg",
                     options: {
                       value: [],
                     },
@@ -66,7 +66,7 @@ Vue.use(VDragLayout);
                   {
                     type: "video",
                     label: "视频",
-                    icon: "https://vincentzyc.github.io/form-design/static/img/widget/video/videoPlay.jpg",
+                    icon: "https://video.jpg",
                     options: {
                       value: [],
                     },
@@ -86,7 +86,7 @@ Vue.use(VDragLayout);
                   {
                     type: "banner",
                     label: "轮播图",
-                    icon: "https://vincentzyc.github.io/form-design/static/img/widget/img/imgSlide.jpg",
+                    icon: "https://banner.jpg",
                     options: {
                       value: [],
                     },
@@ -94,7 +94,7 @@ Vue.use(VDragLayout);
                   {
                     type: "banner1",
                     label: "轮播图1",
-                    icon: "https://vincentzyc.github.io/form-design/static/img/widget/img/imgSlide.jpg",
+                    icon: "https://banner.jpg",
                     options: {
                       value: [],
                     },
@@ -109,6 +109,8 @@ Vue.use(VDragLayout);
           config: {
             title: "页面标题",
             backgroundColor: "#f7f8f9",
+            backgroundImage:
+              "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Ftxt39-1.book118.com%2F2018%2F0507%2Fbook165302%2F165301959.jpg&refer=http%3A%2F%2Ftxt39-1.book118.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1639708958&t=867dee96903c64789947fe525e17cf5a",
             navigatorTitleColor: "#333",
             navigatorColor: "#fff",
           },

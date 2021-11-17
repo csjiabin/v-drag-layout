@@ -1,4 +1,7 @@
 $--drag-primary: #409eff !default;
+$--drag-move-color: #ffd240 !default;
+$--drag-move-color-alpha: mix(#fff, $--drag-move-color, 80%) !default;
+
 $--drag-primary-alpha: mix(#fff, $--drag-primary, 60%) !default;
 $--drag-background-color: mix(#fff, $--drag-primary, 85%) !default;
 $--drag-background-hover-color: mix(#fff, $--drag-primary, 95%) !default;

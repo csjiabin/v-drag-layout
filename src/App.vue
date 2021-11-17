@@ -99,6 +99,8 @@ export default {
         config: {
           title: "页面标题",
           backgroundColor: "#f7f8f9",
+          backgroundImage:
+            "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Ftxt39-1.book118.com%2F2018%2F0507%2Fbook165302%2F165301959.jpg&refer=http%3A%2F%2Ftxt39-1.book118.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1639708958&t=867dee96903c64789947fe525e17cf5a",
           navigatorTitleColor: "#333",
           navigatorColor: "#fff",
         },

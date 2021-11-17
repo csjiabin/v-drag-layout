@@ -70,21 +70,16 @@
         <div class="editor-main">
           <div class="viewer-nav">
             <div class="viewer-nav__statusbar">09:30AM</div>
-            <div
-              class="viewer-nav__title"
-              :style="{
-                backgroundColor: config.navigatorColor,
-                color: config.navigatorTitleColor,
-              }"
-            >
+            <div class="viewer-nav__title" :style="navStyle">
               {{ config.title }}
             </div>
           </div>
 
-          <div class="viewer-body">
+          <div class="viewer-body" :style="bodyStyle">
             <div v-if="views.length == 0" class="viewer-body__empty">
               <slot name="empty">{{ emptyText }}</slot>
             </div>
+            <div class="viewer-body__mask"></div>
             <viewer-main
               ref="viewer"
               v-model="views"
@@ -117,6 +112,7 @@
 const defaultConfig = {
   title: "页面标题",
   backgroundColor: "#f7f8f9",
+  backgroundImage: "",
   navigatorTitleColor: "#333",
   navigatorColor: "#fff",
 };
@@ -124,6 +120,7 @@ import Draggable from "vuedraggable";
 import ViewerMain from "./viewer-main.vue";
 import clickOutside from "./directives/click-outside.js";
 import ViewerItem from "./viewer-item.vue";
+import { isEmpty } from "./utils/util";
 export default {
   name: "v-drag-layout",
   directives: {
@@ -164,6 +161,25 @@ export default {
       selectWidget: {},
       selectIndex: -1,
     };
+  },
+  computed: {
+    navStyle() {
+      const { navigatorColor, navigatorTitleColor } = this.config;
+      return {
+        backgroundColor: navigatorColor,
+        color: navigatorTitleColor,
+      };
+    },
+    bodyStyle() {
+      const { backgroundColor, backgroundImage } = this.config;
+
+      return {
+        backgroundColor: backgroundColor,
+        backgroundImage: isEmpty(backgroundImage)
+          ? ""
+          : `url(${backgroundImage})`,
+      };
+    },
   },
   watch: {
     value: {

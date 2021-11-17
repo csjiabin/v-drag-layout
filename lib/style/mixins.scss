@@ -6,17 +6,19 @@
 @mixin drag() {
   // 拖拽移动时
   & {
-    outline: 2px solid $--drag-primary;
+    outline: 2px dashed $--drag-move-color;
     box-sizing: border-box;
     height: 40px;
     line-height: 40px;
     overflow: hidden;
     position: relative;
     z-index: 10;
+    content: "";
+    font-size: 0;
     &::after {
-      content: "放到这里";
+      content: "";
       display: block;
-      background: #fff;
+      background: $--drag-move-color-alpha;
       position: absolute;
       left: 0;
       right: 0;
@@ -24,7 +26,7 @@
       bottom: 0;
       text-align: center;
       font-size: 16px;
-      color: #999;
+      color: #fff;
       z-index: 10;
     }
   }

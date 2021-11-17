@@ -18,9 +18,6 @@
   height: 100%;
   min-width: 1400px;
   overflow: hidden;
-  ::-webkit-scrollbar {
-    display: none;
-  }
   * {
     box-sizing: border-box;
   }
@@ -57,6 +54,9 @@
     @include flex;
     box-shadow: 0 2px 6px 0px $--drag-shadow-color;
     z-index: 10;
+    *::-webkit-scrollbar {
+      display: none;
+    }
     .components-title {
       height: 100%;
       overflow: hidden auto;
@@ -144,6 +144,9 @@
         margin: 0 5px;
       }
     }
+    *::-webkit-scrollbar {
+      display: none;
+    }
     .viewer-wrapper {
       flex: 1;
       overflow: auto;
@@ -157,6 +160,7 @@
       // overflow: hidden;
       border-radius: 3px;
       position: relative;
+
       &:before {
         border-top: 1px dashed rgba(0, 0, 0, 0.3);
         color: rgba(0, 0, 0, 0.3);
@@ -187,12 +191,14 @@
         &__title {
           text-align: center;
         }
+        // 状态栏
         &__statusbar {
           font-size: 12px;
           height: 20px;
           line-height: 20px;
           color: #666;
         }
+        // 页面标题
         &__title {
           height: 35px;
           line-height: 35px;
@@ -203,19 +209,32 @@
           padding: 0 10px;
         }
       }
+      // 视图区域
       .viewer-body {
         position: relative;
-        > .viewer-main {
-          min-height: 640px;
-          position: relative;
+        background-size: cover;
+        background-repeat: repeat;
+        background-position: 50% 0;
+
+        &__mask {
+          background: hsla(0, 0%, 100%, 0.8);
+          height: 100%;
+          position: absolute;
+          width: 100%;
         }
         &__empty {
           font-size: 14px;
-          color: #ccc;
+          color: rgba(0, 0, 0, 0.3);
           position: absolute;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
+          z-index: 9;
+        }
+        > .viewer-main {
+          min-height: 640px;
+          position: relative;
+          z-index: 10;
         }
       }
       // 拖拽移动时
